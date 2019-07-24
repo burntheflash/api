@@ -1,0 +1,13 @@
+RewriteEngine On
+
+RewriteRule ^usuarios/?$ usuarios.php [NC,L]
+RewriteRule ^usuarios/([0-9]+)?$ usuarios.php?id=$1 [NC,L]
+
+RewriteRule ^sparks/?$ sparks.php [NC,L]
+RewriteRule ^sparks/([0-9]+)?$ sparks.php?id=$1 [NC,L]
+
+RewriteRule ^casas/?$ casas.php [NC,L]
+RewriteRule ^casas/([0-9]+)?$ casas.php?id=$1 [NC,L]
+
+RewriteRule ^eventos/?$ eventos.php [NC,L]
+RewriteRule ^eventos/([0-9]+)?$ eventos.php?id=$1 [NC,L]
