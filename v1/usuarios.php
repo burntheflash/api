@@ -1,5 +1,5 @@
 <?php
-include("../conexao.php");
+include("../config/config.php");
 $db = new dbObj();
 $conexao = $db->conString();
 $req = $_SERVER["REQUEST_METHOD"];
@@ -92,7 +92,7 @@ function updateUsuarios($id) {
         'email' => $_POST['email'],
         'senha' => $_POST['senha'],
         'status' => $_POST['status'],
-        'foto' => $_POST['foto']
+        'foto' => $_FILES['foto']
     );
     $usuario=$data['usuario'];
     $nome=$data['nome'];
@@ -100,7 +100,12 @@ function updateUsuarios($id) {
     $senha=$data['senha'];
     $status=$data['status'];
     $foto=$data['foto'];
-    $query = "UPDATE usuarios SET usuario=$usuario, nome=$nome, email=$email, senha=$senha, status=$status, foto=$foto WHERE id='$id'";
+
+    $foto_temp = explode(".", $foto["name"]);
+    $foto_renomeada = round(microtime(true)) . '.' . end($foto_temp);
+    move_uploaded_file($foto["tmp_name"], "../uploads/" . $foto_renomeada);
+
+    $query = "UPDATE usuarios SET usuario=$usuario, nome=$nome, email=$email, senha=$senha, status=$status, foto=$foto_renomeada WHERE id='$id'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,

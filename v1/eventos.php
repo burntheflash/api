@@ -1,5 +1,5 @@
 <?php
-include("../conexao.php");
+include("../config/config.php");
 $db = new dbObj();
 $conexao = $db->conString();
 $req = $_SERVER["REQUEST_METHOD"];

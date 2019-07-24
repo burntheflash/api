@@ -1,5 +1,5 @@
 <?php
-include("../conexao.php");
+include("../config/config.php");
 $db = new dbObj();
 $conexao = $db->conString();
 $req = $_SERVER["REQUEST_METHOD"];
@@ -103,7 +103,12 @@ function updateCasas($id) {
     $site=$data['site'];
     $facebook=$data['facebook'];
     $instagram=$data['instagram'];
-    $query = "UPDATE casas SET nome=$nome, endereco='$endereco', telefone='$telefone', logo='$logo', site='$site', facebook='$facebook', instagram='$instagram' WHERE id='$id'";
+
+    $logo_temp = explode(".", $logo["name"]);
+    $logo_renomeada = round(microtime(true)) . '.' . end($logo_temp);
+    move_uploaded_file($logo["tmp_name"], "../uploads/" . $logo_renomeada);
+
+    $query = "UPDATE casas SET nome=$nome, endereco='$endereco', telefone='$telefone', logo='$logo_renomeada', site='$site', facebook='$facebook', instagram='$instagram' WHERE id='$id'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,
