@@ -51,7 +51,7 @@ function insertCasas() {
         'nome' => $_POST['nome'],
         'endereco' => $_POST['endereco'],
         'telefone' => $_POST['telefone'],
-        'logo' => $_POST['logo'],
+        'logo' => $_FILES['logo'],
         'site' => $_POST['site'],
         'facebook' => $_POST['facebook'],
         'instagram' => $_POST['instagram']
@@ -63,7 +63,12 @@ function insertCasas() {
     $site=$data['site'];
     $facebook=$data['facebook'];
     $instagram=$data['instagram'];
-    $query = "INSERT INTO casas SET nome='$nome', endereco='$endereco', telefone='$telefone', logo='$logo', site='$site', facebook='$facebook', instagram='$instagram'";
+
+    $logo_temp = explode(".", $logo["name"]);
+    $logo_renomeada = round(microtime(true)) . '.' . end($logo_temp);
+    move_uploaded_file($logo["tmp_name"], "../uploads/" . $logo_renomeada);
+
+    $query = "INSERT INTO casas SET nome='$nome', endereco='$endereco', telefone='$telefone', logo='$logo_renomeada', site='$site', facebook='$facebook', instagram='$instagram'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,

@@ -53,7 +53,7 @@ function insertUsuarios() {
         'email' => $_POST['email'],
         'senha' => $_POST['senha'],
         'status' => $_POST['status'],
-        'foto' => $_POST['foto']
+        'foto' => $_FILES['foto']
     );
     $usuario=$data['usuario'];
     $nome=$data['nome'];
@@ -61,7 +61,12 @@ function insertUsuarios() {
     $senha=$data['senha'];
     $status=$data['status'];
     $foto=$data['foto'];
-    $query = "INSERT INTO usuarios SET usuario='$usuario', nome='$nome', email='$email', senha='$senha', status='$status', foto='$foto'";
+
+    $foto_temp = explode(".", $foto["name"]);
+    $foto_renomeada = round(microtime(true)) . '.' . end($foto_temp);
+    move_uploaded_file($foto["tmp_name"], "../uploads/" . $foto_renomeada);
+
+    $query = "INSERT INTO usuarios SET usuario='$usuario', nome='$nome', email='$email', senha='$senha', status='$status', foto='$foto_renomeada'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,
