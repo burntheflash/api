@@ -66,7 +66,7 @@ function insertUsuarios() {
     $foto_renomeada = round(microtime(true)) . '.' . end($foto_temp);
     move_uploaded_file($foto["tmp_name"], "../uploads/" . $foto_renomeada);
 
-    $query = "INSERT INTO usuarios SET usuario='$usuario', nome='$nome', email='$email', senha='$senha', status='$status', foto='$foto_renomeada'";
+    $query = "INSERT INTO usuarios SET usuario='$usuario', nome='$nome', email='$email', senha='$senha', status='$status', foto='../uploads/$foto_renomeada'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,

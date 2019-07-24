@@ -62,7 +62,7 @@ function insertSparks() {
     $midia_renomeada = round(microtime(true)) . '.' . end($midia_temp);
     move_uploaded_file($midia["tmp_name"], "../uploads/" . $midia_renomeada);
 
-    $query = "INSERT INTO sparks SET usuario='$usuario', midia='$midia_renomeada', data='$data', status='$status'";
+    $query = "INSERT INTO sparks SET usuario='$usuario', midia='../uploads/$midia_renomeada', data='$data', status='$status'";
     if( mysqli_query($conexao, $query) ) {
         $resposta = array (
             'status' => 1,

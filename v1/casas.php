@@ -31,9 +31,9 @@ switch($req) {
 //busca um registro no banco de dados, baseado no :id
 function getCasas($id=0) {
     global $conexao;
-    $query = "SELECT * FROM casas ";
+    $query = "SELECT * FROM casas";
     if($id != 0) {
-        $query.="WHERE id='$id' LIMIT 1";
+        $query.=" WHERE id='$id' LIMIT 1";
     }
     $resposta = array();
     $resultados = mysqli_query($conexao, $query);
