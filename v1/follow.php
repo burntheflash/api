@@ -7,27 +7,23 @@ $req = $_SERVER["REQUEST_METHOD"];
 //verifica a requisição
 switch($req) {
     case 'GET':
-        if( !empty($_GET["id"]) ) { //se existe um id, lista apenas o spark deste id
-            $id = intval($_GET["id"]);
-            getSparks($id);
-        } else if ( !empty($_GET["u_id"]) ) {
-            $userID = intval($_GET["u_id"]);
-            getSparksFromUser($userID);
-        } else { //ou então lista todos os sparks
-            getSparks();
-        }
+        getFollowingUsers();
     break;
 
     case 'POST':
-        insertSparks();
+        followUser();
     break;
 
     case 'PUT':
         header("HTTP/1.0 405 Method Not Allowed");
     break;
 
+    case 'DELETE':
+        deleteConexao();
+    break;
+
     default:
-        header("HTTP/1.0 405 Method Not Allowed");
+        
     break;
 }
 
@@ -91,16 +87,6 @@ function insertSparks() {
         );
     }
     header('Content-Type: application/json');
-    echo json_encode($resposta);
-}
-
-//deleta um registro
-function deleteSparks($id) {
-    global $conexao;
-    $query = "DELETE FROM sparks WHERE id=$id";
-    $resposta = array();
-    $resultados = mysqli_query($conexao, $query);
-    header("Content-Type: application/json");
     echo json_encode($resposta);
 }
 

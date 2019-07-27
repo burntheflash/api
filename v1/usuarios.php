@@ -23,6 +23,10 @@ switch($req) {
         updateUsuarios();
     break;
 
+    case 'DELETE':
+        deleteUsuarios();
+    break;
+
     default:
         header("HTTP/1.0 405 Method Not Allowed");
     break;
@@ -118,6 +122,16 @@ function updateUsuarios($id) {
         );
     }
     header('Content-Type: application/json');
+    echo json_encode($resposta);
+}
+
+//deleta um registro
+function deleteUsuarios($id) {
+    global $conexao;
+    $query = "DELETE FROM usuarios WHERE id=$id";
+    $resposta = array();
+    $resultados = mysqli_query($conexao, $query);
+    header("Content-Type: application/json");
     echo json_encode($resposta);
 }
 

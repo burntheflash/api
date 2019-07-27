@@ -34,7 +34,23 @@ function getEventos($id=0) {
     $query = "SELECT * FROM eventos";
     if($id != 0) {
         $query.=" WHERE id='$id' LIMIT 1";
+    } else if ( !empty($_GET["c_id"]) ) {
+        $casaID = intval($_GET["c_id"]);
+        getEventosFromCasa($casaID);
     }
+    $resposta = array();
+    $resultados = mysqli_query($conexao, $query);
+    while( $resultado = mysqli_fetch_assoc($resultados) ) {
+        $resposta[]=$resultado;
+    }
+    header("Content-Type: application/json");
+    echo json_encode($resposta);
+}
+
+//busca um registro no banco de dados, baseado no :id
+function getEventosFromCasa($casaID) {
+    global $conexao;
+    $query = "SELECT * FROM eventos WHERE casa='$casaID'";
     $resposta = array();
     $resultados = mysqli_query($conexao, $query);
     while( $resultado = mysqli_fetch_assoc($resultados) ) {
@@ -107,6 +123,16 @@ function updateEventos($id) {
         );
     }
     header('Content-Type: application/json');
+    echo json_encode($resposta);
+}
+
+//deleta um registro
+function deleteEventos($id) {
+    global $conexao;
+    $query = "DELETE FROM eventos WHERE id=$id";
+    $resposta = array();
+    $resultados = mysqli_query($conexao, $query);
+    header("Content-Type: application/json");
     echo json_encode($resposta);
 }
 

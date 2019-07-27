@@ -5,9 +5,11 @@ RewriteRule ^usuarios/([0-9]+)?$ usuarios.php?id=$1 [NC,L]
 
 RewriteRule ^sparks/?$ sparks.php [NC,L]
 RewriteRule ^sparks/([0-9]+)?$ sparks.php?id=$1 [NC,L]
+RewriteRule ^sparks/usuario/([^/]*)$ sparks.php?u_id=$1 [L]
 
 RewriteRule ^casas/?$ casas.php [NC,L]
 RewriteRule ^casas/([0-9]+)?$ casas.php?id=$1 [NC,L]
 
 RewriteRule ^eventos/?$ eventos.php [NC,L]
 RewriteRule ^eventos/([0-9]+)?$ eventos.php?id=$1 [NC,L]
+RewriteRule ^eventos/casa/([^/]*)$ eventos.php?c_id=$1 [L]

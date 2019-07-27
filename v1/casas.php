@@ -23,6 +23,10 @@ switch($req) {
         updateCasas();
     break;
 
+    case 'DELETE':
+        deleteCasas();
+    break;
+
     default:
         header("HTTP/1.0 405 Method Not Allowed");
     break;
@@ -121,6 +125,16 @@ function updateCasas($id) {
         );
     }
     header('Content-Type: application/json');
+    echo json_encode($resposta);
+}
+
+//deleta um registro
+function deleteCasas($id) {
+    global $conexao;
+    $query = "DELETE FROM casas WHERE id=$id";
+    $resposta = array();
+    $resultados = mysqli_query($conexao, $query);
+    header("Content-Type: application/json");
     echo json_encode($resposta);
 }
 
